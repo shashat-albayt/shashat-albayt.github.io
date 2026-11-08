@@ -1,11 +1,11 @@
 {
- "updated": "2026-11-08T14:50:11.794263Z",
+ "updated": "2026-11-08T15:00:24.720730Z",
  "sources": [
   {
    "source": "المملكة",
    "feed": "https://www.almamlakatv.com/rss.xml",
    "raw": 10,
-   "kept": 3,
+   "kept": 2,
    "errors": []
   },
   {
@@ -26,7 +26,7 @@
    "source": "الجزيرة نت",
    "feed": "https://www.aljazeera.net/aljazeerarss/a7c186be-1baa-4bd4-9d80-a84db769f779/73d0e1b4-532f-45ef-b135-bfdff8b8cab9",
    "raw": 25,
-   "kept": 2,
+   "kept": 1,
    "errors": []
   },
   {
