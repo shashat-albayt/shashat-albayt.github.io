@@ -262,12 +262,19 @@ body{font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',sans-serif;font-weight
   function show12(min) { var h = Math.floor(min / 60), m = min % 60; return (h % 12 || 12) + ':' + pad(m); }
 
   /* التاريخ الهجري يُحسب محليًا (أم القرى) فيتجدد عند منتصف الليل حتى لو تعذّر الاتصال */
+  var hijriExtra = [];
+  function fetchHijri() {
+    getJSON('hijri.json?' + new Date().getTime(), function (res) {
+      try { if (res && res.starts && res.starts.length) { hijriExtra = res.starts; renderPrayers(); } } catch (e) {}
+    }, function () {});
+  }
   function hijriToday() {
     try {
       var n0 = ammanNow(), t0 = Date.UTC(n0.getUTCFullYear(), n0.getUTCMonth(), n0.getUTCDate()), best = null;
-      for (var i = 0; i < CONFIG.hijriStarts.length; i++) {
-        var p = CONFIG.hijriStarts[i].g.split('-'), d0 = Date.UTC(+p[0], +p[1] - 1, +p[2]);
-        if (d0 <= t0 && (!best || d0 > best.d)) { best = { d: d0, e: CONFIG.hijriStarts[i] }; }
+      var all = CONFIG.hijriStarts.concat(hijriExtra);
+      for (var i = 0; i < all.length; i++) {
+        var p = all[i].g.split('-'), d0 = Date.UTC(+p[0], +p[1] - 1, +p[2]);
+        if (d0 <= t0 && (!best || d0 > best.d)) { best = { d: d0, e: all[i] }; }
       }
       if (best) {
         var day = Math.round((t0 - best.d) / 86400000) + 1;
@@ -710,6 +717,7 @@ body{font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',sans-serif;font-weight
   ensurePrayers();
   renderPrayers();
   fit();
+  fetchHijri();
   window.addEventListener('resize', fit);
   $('szDn').onclick = function (e) { setScale(-0.05); if (e && e.stopPropagation) { e.stopPropagation(); } };
   $('szUp').onclick = function (e) { setScale(0.05); if (e && e.stopPropagation) { e.stopPropagation(); } };
@@ -720,6 +728,7 @@ body{font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',sans-serif;font-weight
   setInterval(ensurePrayers, 30000);
   setInterval(fetchWeather, CONFIG.weatherRefreshMinutes * 60000);
   setInterval(fetchNews, CONFIG.newsRefreshMinutes * 60000);
+  setInterval(fetchHijri, 30 * 60000);
   setInterval(function () { nextDhikr(false); }, CONFIG.dhikrSeconds * 1000);
   setInterval(nextNews, CONFIG.newsSeconds * 1000);
   setInterval(drawScene, CONFIG.sceneRefreshSeconds * 1000);

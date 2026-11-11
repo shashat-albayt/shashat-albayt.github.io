@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - fetch_news.py
+      - fetch_hijri.py
       - .github/workflows/news.yml
   workflow_dispatch:
 concurrency:
@@ -18,8 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 fetch_news.py
+      - run: python3 fetch_hijri.py || true
       - run: |
           git config user.name "news-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add news.json status.json
+          git add news.json status.json hijri.json
           git diff --cached --quiet || (git commit -m "update news" && git pull --rebase && git push)
