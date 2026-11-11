@@ -143,6 +143,11 @@ body{font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',sans-serif;font-weight
       sunset: ['https://commons.wikimedia.org/wiki/Special:FilePath/Al-Aqsa_mosque_(8682155875).jpg?width=1920'],
       night: ['https://commons.wikimedia.org/wiki/Special:FilePath/Dome_of_the_Rock_at_night_(2706791939).jpg?width=1920']
     },
+    // بدايات الأشهر الهجرية حسب دار الإفتاء الأردنية (يُضاف سطر جديد عند إعلان كل شهر). إن لم يوجد سطر حديث يُحسب التاريخ بتقويم أم القرى.
+    hijriStarts: [
+      { g: '2026-10-12', m: 'جمادى الأولى', y: 1448 },
+      { g: '2026-11-11', m: 'جمادى الآخرة', y: 1448 }
+    ],
     quranUrl: 'https://soundcloud.com/user-258834376/2-quran-9',
     quranTitle: 'سورة البقرة',
     feeds: [
@@ -259,6 +264,17 @@ body{font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',sans-serif;font-weight
   /* التاريخ الهجري يُحسب محليًا (أم القرى) فيتجدد عند منتصف الليل حتى لو تعذّر الاتصال */
   function hijriToday() {
     try {
+      var n0 = ammanNow(), t0 = Date.UTC(n0.getUTCFullYear(), n0.getUTCMonth(), n0.getUTCDate()), best = null;
+      for (var i = 0; i < CONFIG.hijriStarts.length; i++) {
+        var p = CONFIG.hijriStarts[i].g.split('-'), d0 = Date.UTC(+p[0], +p[1] - 1, +p[2]);
+        if (d0 <= t0 && (!best || d0 > best.d)) { best = { d: d0, e: CONFIG.hijriStarts[i] }; }
+      }
+      if (best) {
+        var day = Math.round((t0 - best.d) / 86400000) + 1;
+        if (day <= 30) { return day + ' ' + best.e.m + ' ' + best.e.y + ' هـ'; }
+      }
+    } catch (e0) {}
+    try {
       var f = new Intl.DateTimeFormat('ar-u-ca-islamic-umalqura-nu-latn', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
       var r = f.format(ammanNow());
       return /1[34]\d\d/.test(r) ? r : '';
@@ -288,6 +304,7 @@ body{font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',sans-serif;font-weight
   }
 
   function renderPrayers() {
+    $('hijri').textContent = hijriToday() || (prayerState && prayerState.hijri) || '';
     if (!prayerState) { return; }
     var d = ammanNow();
     var nowMin = d.getUTCHours() * 60 + d.getUTCMinutes();
@@ -319,7 +336,6 @@ body{font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',sans-serif;font-weight
       $('nextName').textContent = nextName;
       $('countdown').textContent = 'بعد ' + (h > 0 ? h + ' ساعة و' : '') + mm + ' دقيقة';
     }
-    $('hijri').textContent = hijriToday() || prayerState.hijri || '';
   }
 
   /* ---------- الطقس ---------- */
