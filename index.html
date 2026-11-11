@@ -256,8 +256,18 @@ body{font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',sans-serif;font-weight
   function toMin(s) { var a = String(s).substr(0, 5).split(':'); return parseInt(a[0], 10) * 60 + parseInt(a[1], 10); }
   function show12(min) { var h = Math.floor(min / 60), m = min % 60; return (h % 12 || 12) + ':' + pad(m); }
 
+  /* التاريخ الهجري يُحسب محليًا (أم القرى) فيتجدد عند منتصف الليل حتى لو تعذّر الاتصال */
+  function hijriToday() {
+    try {
+      var f = new Intl.DateTimeFormat('ar-u-ca-islamic-umalqura-nu-latn', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+      var r = f.format(ammanNow());
+      return /1[34]\d\d/.test(r) ? r : '';
+    } catch (e) { return ''; }
+  }
   function fetchPrayers() {
-    var url = 'https://api.aladhan.com/v1/timings?latitude=' + CONFIG.lat + '&longitude=' + CONFIG.lon + '&method=' + CONFIG.method;
+    /* التاريخ في الرابط (وليس «اليوم» الضمني) كي لا يعيد المتصفح استجابة مخزّنة من يوم سابق */
+    var n = ammanNow();
+    var url = 'https://api.aladhan.com/v1/timings/' + pad(n.getUTCDate()) + '-' + pad(n.getUTCMonth() + 1) + '-' + n.getUTCFullYear() + '?latitude=' + CONFIG.lat + '&longitude=' + CONFIG.lon + '&method=' + CONFIG.method + '&_=' + new Date().getTime();
     getJSON(url, function (res) {
       try {
         var tm = res.data.timings, hj = res.data.date.hijri;
@@ -309,7 +319,7 @@ body{font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',sans-serif;font-weight
       $('nextName').textContent = nextName;
       $('countdown').textContent = 'بعد ' + (h > 0 ? h + ' ساعة و' : '') + mm + ' دقيقة';
     }
-    $('hijri').textContent = prayerState.hijri || '';
+    $('hijri').textContent = hijriToday() || prayerState.hijri || '';
   }
 
   /* ---------- الطقس ---------- */
