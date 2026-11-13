@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T09:13:04.025720Z",
+ "updated": "2026-11-13T09:20:14.650371Z",
  "sources": [
   {
    "source": "المملكة",
@@ -21,7 +21,7 @@
    "raw": 0,
    "kept": 0,
    "errors": [
-    "TimeoutError:https://www.alaraby.tv/feed"
+    "HTTPError:https://www.alaraby.tv/feed"
    ]
   },
   {
