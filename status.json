@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T18:30:19.559712Z",
+ "updated": "2026-11-17T18:40:18.321378Z",
  "sources": [
   {
    "source": "المملكة",
@@ -12,7 +12,7 @@
    "source": "الغد",
    "feed": "https://alghad.com/rss",
    "raw": 15,
-   "kept": 2,
+   "kept": 3,
    "errors": []
   },
   {
@@ -33,7 +33,7 @@
    "source": "بي بي سي عربي",
    "feed": "https://feeds.bbci.co.uk/arabic/rss.xml",
    "raw": 25,
-   "kept": 2,
+   "kept": 1,
    "errors": []
   }
  ]
