@@ -1,19 +1,21 @@
 {
- "updated": "2026-11-24T04:50:15.554140Z",
+ "updated": "2026-11-24T05:00:31.044689Z",
  "sources": [
   {
    "source": "المملكة",
    "feed": "https://www.almamlakatv.com/rss.xml",
    "raw": 10,
-   "kept": 2,
+   "kept": 1,
    "errors": []
   },
   {
    "source": "الغد",
-   "feed": "https://alghad.com/rss",
-   "raw": 15,
+   "feed": null,
+   "raw": 0,
    "kept": 0,
-   "errors": []
+   "errors": [
+    "HTTPError:https://alghad.com/rss"
+   ]
   },
   {
    "source": "التلفزيون العربي",
