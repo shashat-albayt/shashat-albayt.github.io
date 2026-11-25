@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T11:10:16.834038Z",
+ "updated": "2026-11-25T11:20:23.627582Z",
  "sources": [
   {
    "source": "المملكة",
@@ -10,10 +10,12 @@
   },
   {
    "source": "الغد",
-   "feed": "https://alghad.com/rss",
-   "raw": 15,
-   "kept": 1,
-   "errors": []
+   "feed": null,
+   "raw": 0,
+   "kept": 0,
+   "errors": [
+    "HTTPError:https://alghad.com/rss"
+   ]
   },
   {
    "source": "التلفزيون العربي",
@@ -26,7 +28,7 @@
    "source": "الجزيرة نت",
    "feed": "https://www.aljazeera.net/aljazeerarss/a7c186be-1baa-4bd4-9d80-a84db769f779/73d0e1b4-532f-45ef-b135-bfdff8b8cab9",
    "raw": 25,
-   "kept": 2,
+   "kept": 0,
    "errors": []
   },
   {
