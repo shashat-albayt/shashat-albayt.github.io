@@ -1,26 +1,24 @@
 {
- "updated": "2026-11-25T15:40:19.068177Z",
+ "updated": "2026-11-25T15:52:13.763871Z",
  "sources": [
   {
    "source": "المملكة",
    "feed": "https://www.almamlakatv.com/rss.xml",
    "raw": 10,
-   "kept": 1,
+   "kept": 3,
    "errors": []
   },
   {
    "source": "الغد",
-   "feed": null,
-   "raw": 0,
-   "kept": 0,
-   "errors": [
-    "HTTPError:https://alghad.com/rss"
-   ]
+   "feed": "https://alghad.com/rss",
+   "raw": 15,
+   "kept": 3,
+   "errors": []
   },
   {
    "source": "التلفزيون العربي",
    "feed": "https://www.alaraby.tv/feed",
-   "raw": 126,
+   "raw": 127,
    "kept": 3,
    "errors": []
   },
