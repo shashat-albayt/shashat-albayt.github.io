@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T17:10:24.277852Z",
+ "updated": "2026-11-27T17:20:20.120380Z",
  "sources": [
   {
    "source": "المملكة",
@@ -10,12 +10,10 @@
   },
   {
    "source": "الغد",
-   "feed": null,
-   "raw": 0,
-   "kept": 0,
-   "errors": [
-    "HTTPError:https://alghad.com/rss"
-   ]
+   "feed": "https://alghad.com/rss",
+   "raw": 15,
+   "kept": 2,
+   "errors": []
   },
   {
    "source": "التلفزيون العربي",
